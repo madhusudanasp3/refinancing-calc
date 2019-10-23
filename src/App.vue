@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <LoanToValueCalc msg="Refinancing Calculator" />
+    <RefinancingCalc msg="Refinancing Calculator" />
   </div>
 </template>
 
