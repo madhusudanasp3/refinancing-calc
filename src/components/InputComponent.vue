@@ -50,6 +50,11 @@
             </div>
           </div>
           <InputFieldComponent
+            v-bind:inputField="monthlyPayment"
+            v-on:enter-value="validateOptionalField"
+            v-bind:isInvalid="!monthlyPayment.isValid"
+          ></InputFieldComponent>
+          <InputFieldComponent
             v-bind:inputField="mortgageBalance.second"
             v-on:enter-value="validateOptionalField"
             v-bind:isInvalid="!mortgageBalance.second.isValid"
@@ -105,6 +110,18 @@ export default {
         placeHolder: "Enter Amount",
         errorMsg:
           "This field is required and must be numeric and greater than zero."
+      },
+      monthlyPayment: {
+        id: "monthlyPayment",
+        value: null,
+        isValid: true,
+        label: "Monthly Payment",
+        icon: "$",
+        type: "text",
+        placeHolder: "Enter Amount",
+        errorMsg:
+          "This field is required and must be numeric and greater than zero.",
+        desc: "(Principal & interest only)"
       },
       mortgageBalance: {
         first: {
