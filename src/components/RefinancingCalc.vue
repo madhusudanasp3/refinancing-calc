@@ -27,9 +27,9 @@
             role="tab"
             aria-controls="result"
             aria-selected="false"
-            :class="[result.totalRatio == null ? 'disabled1': '',
+            :class="[result.totalRatio == null ? 'disabled': '',
                      visibleTab === 1 ? 'active' : '']"
-            @click="resultTabbehaviour"
+            @click="visibleTab = 1"
           >Result</a>
         </div>
       </nav>
@@ -60,16 +60,16 @@
 <script>
 import InputComponent from "./InputComponent.vue";
 import ResultComponent from "./ResultComponent.vue";
-import { EventBus } from "./event-bus.js";
+
 export default {
-  name: "LoanToValueCalc",
+  name: "RefinancingCalc",
   components: {
     InputComponent,
     ResultComponent
   },
   data() {
     return {
-      msg: "Loan-to-Value Calculator",
+      msg: "Refinancing Calculator",
       result: {
         estHomeValue: null,
         firstMortgageBalance: null,
@@ -100,17 +100,6 @@ export default {
       this.result.secondMortgageBalance = parseFloat(estMortgages.second.value);
       this.result.thirdMortgageBalance = parseFloat(estMortgages.third.value);
       this.visibleTab = 1;
-    },
-    resultTabbehaviour(event) {
-      this.resultTabClick = 1;
-      if (
-        this.result.estHomeValue == null ||
-        this.firstMortgageBalance == null
-      ) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      EventBus.$emit("caluclateRestls", event);
     }
   }
 };

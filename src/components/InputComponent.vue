@@ -59,7 +59,6 @@
 
 <script>
 import InputFieldComponent from "./InputFieldComponent";
-import { EventBus } from "./event-bus.js";
 
 export default {
   name: "InputComponent",
@@ -218,15 +217,6 @@ export default {
       return isFormValid;
     }
   },
-  mounted() {
-    EventBus.$on("caluclateRestls", event => {
-      // eslint-disable-next-line
-      console.log(
-        `Your are inside inputcomponents block -- click value is ${event} clicks!`
-      );
-      this.submitForm(event);
-    });
-  }
 };
 </script>
 

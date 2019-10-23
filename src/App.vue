@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <LoanToValueCalc msg="Loan-to-Value Calculator" />
+    <LoanToValueCalc msg="Refinancing Calculator" />
   </div>
 </template>
 
 <script>
-import LoanToValueCalc from "./components/LoanToValueCalc.vue";
+import RefinancingCalc from "./components/RefinancingCalc.vue";
 
 export default {
   name: "app",
   components: {
-    LoanToValueCalc
+    RefinancingCalc
   }
 };
 </script>
@@ -66,5 +66,12 @@ export default {
   font-size: 12px;
   font-style: italic;
   font-weight: normal;
+}
+
+.disabledTab {
+  pointer-events: none;
+  background-color: #f2f2f2;
+  border-radius: 0;
+  margin: 0 2px;
 }
 </style>
