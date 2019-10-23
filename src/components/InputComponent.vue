@@ -8,8 +8,8 @@
               <span>How To Use</span>
             </div>
             <div class="row padding-left--text">
-              <p>The Loan-to-Value calculator is provided to help you estimate how much you owe on your mortgage compared to your home's current market value.</p>
-              <p>This calculator returns information based on inputs regarding your existing mortgage information. It is important that you provide accurate information in order to receive more realistic results.</p>
+              <p>The refinance calculator is provided to help you with general information regarding the possible benefits of refinancing your first mortgage. The results returned by this calculator should only be used as one of many factors in evaluating your options.</p>
+              <p>This calculator returns information based on your inputs regarding your existing mortgage information. It is important that you provide accurate information in order to receive more realistic results. This calculator can only provide a general overview of your situation based on the information you provide. Your mortgage company may use different information to determine eligibility and your individual results may vary from the results shown by this calculator.</p>
             </div>
           </div>
         </div>
@@ -216,7 +216,7 @@ export default {
         !mortgageBalance.third.isValid;
       return isFormValid;
     }
-  },
+  }
 };
 </script>
 
