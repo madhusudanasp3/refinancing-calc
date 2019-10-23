@@ -24,15 +24,31 @@
             </div>
           </div>
           <InputFieldComponent
+            v-bind:inputField="testfirstMortgageBalance"
+            v-on:enter-value="validateGreaterThanZero"
+            v-bind:isInvalid="!testfirstMortgageBalance.isValid"
+          ></InputFieldComponent>
+          <InputFieldComponent
             v-bind:inputField="homeVal"
             v-on:enter-value="validateGreaterThanZero"
             v-bind:isInvalid="!homeVal.isValid"
           ></InputFieldComponent>
-          <InputFieldComponent
-            v-bind:inputField="mortgageBalance.first"
-            v-on:enter-value="validateGreaterThanZero"
-            v-bind:isInvalid="!mortgageBalance.first.isValid"
-          ></InputFieldComponent>
+          <div
+            class="form-group row background--gray background--rounded padding margin--bottom align-items-center"
+          >
+            <label class="col-sm-6 padding-right-none col-form-label font-weight-bold">
+              Loan to Value (LTV) Ratio
+              <br />
+            </label>
+            <div class="col-sm-6 padding-right-none">
+              <div class="input-group">
+                <span class="form-control">{{ this.ltvRatio }}</span>
+                <div class="input-group-append">
+                  <span class="input-group-text rounded-right">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
           <InputFieldComponent
             v-bind:inputField="mortgageBalance.second"
             v-on:enter-value="validateOptionalField"
@@ -67,11 +83,23 @@ export default {
   },
   data() {
     return {
+      ltvRatio: 105,
       homeVal: {
         id: "estHomeValue",
         value: null,
         isValid: true,
         label: "Estimated Home Value",
+        icon: "$",
+        type: "text",
+        placeHolder: "Enter Amount",
+        errorMsg:
+          "This field is required and must be numeric and greater than zero."
+      },
+      testfirstMortgageBalance: {
+        id: "testfirstMortgageBalance",
+        value: null,
+        isValid: true,
+        label: "** First Monthly Mortgage Balance **",
         icon: "$",
         type: "text",
         placeHolder: "Enter Amount",
@@ -150,9 +178,9 @@ export default {
       return !isNaN(parseFloat(n)) && isFinite(n);
     },
     submitForm(event) {
-      if (this.isValidForm(this.homeVal, this.mortgageBalance)) {
+      if (this.isValidForm(this.homeVal, this.testfirstMortgageBalance)) {
         this.validateGreaterThanZero(this.homeVal);
-        this.validateGreaterThanZero(this.mortgageBalance.first);
+        this.validateGreaterThanZero(this.testfirstMortgageBalance);
         event.preventDefault();
         return;
       }
@@ -205,13 +233,13 @@ export default {
       return sum;
     },
 
-    isValidForm(homeVal, mortgageBalance) {
+    isValidForm(homeVal, testfirstMortgageBalance) {
       let isFormValid = true;
       isFormValid =
         !homeVal.isValid ||
         !homeVal.value ||
-        !mortgageBalance.first.value ||
-        !mortgageBalance.first.isValid ||
+        !testfirstMortgageBalance.value ||
+        !testfirstMortgageBalance.isValid ||
         !mortgageBalance.second.isValid ||
         !mortgageBalance.third.isValid;
       return isFormValid;
