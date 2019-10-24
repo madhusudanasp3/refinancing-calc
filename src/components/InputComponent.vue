@@ -42,7 +42,7 @@
             </label>
             <div class="col-sm-6 padding-right-none">
               <div class="input-group">
-                <span class="form-control">{{ this.ltvRatio }}</span>
+                <span class="form-control">{{ ltvRatio }}</span>
                 <div class="input-group-append">
                   <span class="input-group-text rounded-right">%</span>
                 </div>
@@ -104,15 +104,13 @@
               <span class="desc">(Select 15, 20, 30 or 40 years)</span>
             </label>
             <div class="col-sm-6 padding-right-none">
-              <div class="input-group mb-3">
-                <select class="custom-select" id="inputGroupSelect01">
-                  <option selected>--Select Term</option>
-                  <option value="1">15</option>
-                  <option value="2">20</option>
-                  <option value="3">30</option>
-                  <option value="4">40</option>
-                </select>
-              </div>
+              <select class="form-control" v-model="newTerm" id="exampleFormControlSelect1">
+                <option value="null">-- Select Term</option>
+                <option>15</option>
+                <option>20</option>
+                <option>30</option>
+                <option>40</option>
+              </select>
             </div>
           </div>
           <div
@@ -170,11 +168,11 @@ export default {
   },
   data() {
     return {
-      ltvRatio: 105,
+      ltvRatio1: false,
       totalMonthlyPayment: 1000,
       fixedInterestRate: null,
       closingCosts: 1.5,
-      selected: "",
+      newTerm: "",
       homeVal: {
         id: "estHomeValue",
         value: null,
@@ -290,6 +288,14 @@ export default {
         totalAmountOwed: null
       }
     };
+  },
+  computed: {
+    ltvRatio() {
+      if (this.ltvRatio1) {
+        return 105;
+      } else
+        return (this.testfirstMortgageBalance.value / this.homeVal.value) * 100;
+    }
   },
   methods: {
     validateOptionalField(input) {
