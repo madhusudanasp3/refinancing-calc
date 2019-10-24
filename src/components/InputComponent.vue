@@ -19,7 +19,7 @@
               <div
                 class="row padding-label color--blue font-weight-bold background--gray background--rounded margin--bottom"
               >
-                <span>Existing Mortgage Information</span>
+                <span>Your Existing Mortgage Information</span>
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@
             v-bind:isInvalid="!homeVal.isValid"
           ></InputFieldComponent>
           <div
-            class="form-group row background--gray background--rounded padding margin--bottom align-items-center"
+            class="form-group row background--gray background--rounded margin--bottom align-items-center"
           >
             <label class="col-sm-6 padding-right-none col-form-label font-weight-bold">
               Loan to Value (LTV) Ratio
@@ -55,16 +55,98 @@
             v-bind:isInvalid="!monthlyPayment.isValid"
           ></InputFieldComponent>
           <InputFieldComponent
-            v-bind:inputField="mortgageBalance.second"
+            v-bind:inputField="annualFees.propertyTaxes"
             v-on:enter-value="validateOptionalField"
-            v-bind:isInvalid="!mortgageBalance.second.isValid"
+            v-bind:isInvalid="!annualFees.propertyTaxes.isValid"
           ></InputFieldComponent>
           <InputFieldComponent
-            v-bind:inputField="mortgageBalance.third"
+            v-bind:inputField="annualFees.propertyInsurance"
             v-on:enter-value="validateOptionalField"
-            v-bind:isInvalid="!mortgageBalance.third.isValid"
+            v-bind:isInvalid="!annualFees.propertyInsurance.isValid"
           ></InputFieldComponent>
-
+          <InputFieldComponent
+            v-bind:inputField="annualFees.hoa"
+            v-on:enter-value="validateOptionalField"
+            v-bind:isInvalid="!annualFees.hoa.isValid"
+          ></InputFieldComponent>
+          <div
+            class="form-group row background--gray background--rounded margin--bottom align-items-center"
+          >
+            <label class="col-sm-6 padding-right-none col-form-label font-weight-bold">
+              Total Monthly Payment
+              <br />
+              <span class="desc">(Including principal, interest, taxes, insurance & HOA fees)</span>
+            </label>
+            <div class="col-sm-6 padding-right-none">
+              <div class="input-group">
+                <span class="form-control">{{ this.totalMonthlyPayment }}</span>
+                <div class="input-group-append">
+                  <span class="input-group-text rounded-right">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div
+                class="row padding-label color--blue font-weight-bold background--gray background--rounded margin--bottom"
+              >
+                <span>Refinancing Information</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="form-group row background--gray background--rounded margin--bottom align-items-center"
+          >
+            <label class="col-sm-6 padding-right-none col-form-label font-weight-bold">
+              New Term
+              <br />
+              <span class="desc">(Select 15, 20, 30 or 40 years)</span>
+            </label>
+            <div class="col-sm-6 padding-right-none">
+              <div class="input-group mb-3">
+                <select class="custom-select" id="inputGroupSelect01">
+                  <option selected>--Select Term</option>
+                  <option value="1">15</option>
+                  <option value="2">20</option>
+                  <option value="3">30</option>
+                  <option value="4">40</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div
+            class="form-group row background--gray background--rounded margin--bottom align-items-center"
+          >
+            <label class="col-sm-6 padding-right-none col-form-label font-weight-bold">
+              Fixed Interest Rate
+              <br />
+            </label>
+            <div class="col-sm-6 padding-right-none">
+              <div class="input-group">
+                <span class="form-control">{{ this.fixedInterestRate }}</span>
+                <div class="input-group-append">
+                  <span class="input-group-text rounded-right">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="form-group row background--gray background--rounded margin--bottom align-items-center"
+          >
+            <label class="col-sm-6 padding-right-none col-form-label font-weight-bold">
+              Closing Cost
+              <br />
+              <span
+                class="desc"
+              >(Usually 1-2% of loan amount. 1.5% has been used within this example.)</span>
+            </label>
+            <div class="col-sm-6 padding-right-none">
+              <div class="input-group">
+                <span class="form-control--plaintext font-weight-bold">{{ this.closingCosts + '%'}}</span>
+              </div>
+            </div>
+          </div>
           <div class="form-group row">
             <div class="col">
               <div class="row">
@@ -89,6 +171,10 @@ export default {
   data() {
     return {
       ltvRatio: 105,
+      totalMonthlyPayment: 1000,
+      fixedInterestRate: null,
+      closingCosts: 1.5,
+      selected: "",
       homeVal: {
         id: "estHomeValue",
         value: null,
@@ -104,7 +190,7 @@ export default {
         id: "testfirstMortgageBalance",
         value: null,
         isValid: true,
-        label: "** First Monthly Mortgage Balance **",
+        label: "First Monthly Mortgage Balance",
         icon: "$",
         type: "text",
         placeHolder: "Enter Amount",
@@ -122,6 +208,42 @@ export default {
         errorMsg:
           "This field is required and must be numeric and greater than zero.",
         desc: "(Principal & interest only)"
+      },
+      annualFees: {
+        propertyTaxes: {
+          id: "propertyTaxes",
+          value: null,
+          isValid: true,
+          label: "Annual Property Taxes",
+          icon: "$",
+          type: "text",
+          placeHolder: "Enter Amount",
+          errorMsg:
+            "This field is required and must be numeric and greater than Zero."
+        },
+        propertyInsurance: {
+          id: "propertyInsurance",
+          value: null,
+          isValid: true,
+          label: "Annual Property Insurance",
+          icon: "$",
+          type: "text",
+          placeHolder: "Enter Amount",
+          errorMsg:
+            "This field is optional, but if you enter it must be numeric or leave it blank."
+        },
+        hoa: {
+          id: "hoa",
+          value: null,
+          isValid: true,
+          label: "Annual Homeowner's Association (HOA) Fees",
+          icon: "$",
+          type: "text",
+          placeHolder: "Enter Amount Optional",
+          errorMsg:
+            "This field is optional, but if you enter it must be numeric or leave it blank.",
+          desc: "(If applicable)"
+        }
       },
       mortgageBalance: {
         first: {
@@ -257,8 +379,8 @@ export default {
         !homeVal.value ||
         !testfirstMortgageBalance.value ||
         !testfirstMortgageBalance.isValid ||
-        !mortgageBalance.second.isValid ||
-        !mortgageBalance.third.isValid;
+        !testfirstMortgageBalance.isValid ||
+        !testfirstMortgageBalance.isValid;
       return isFormValid;
     }
   }
