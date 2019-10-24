@@ -24,9 +24,9 @@
             </div>
           </div>
           <InputFieldComponent
-            v-bind:inputField="testfirstMortgageBalance"
+            v-bind:inputField="firstMortgageBalance"
             v-on:enter-value="validateGreaterThanZero"
-            v-bind:isInvalid="!testfirstMortgageBalance.isValid"
+            v-bind:isInvalid="!firstMortgageBalance.isValid"
           ></InputFieldComponent>
           <InputFieldComponent
             v-bind:inputField="homeVal"
@@ -184,8 +184,8 @@ export default {
         errorMsg:
           "This field is required and must be numeric and greater than zero."
       },
-      testfirstMortgageBalance: {
-        id: "testfirstMortgageBalance",
+      firstMortgageBalance: {
+        id: "firstMortgageBalance",
         value: null,
         isValid: true,
         label: "First Monthly Mortgage Balance",
@@ -256,12 +256,12 @@ export default {
   computed: {
     ltvRatio() {
       if (
-        this.testfirstMortgageBalance.value != null &&
+        this.firstMortgageBalance.value != null &&
         this.homeVal.value != null &&
-        this.testfirstMortgageBalance.isValid &&
+        this.firstMortgageBalance.isValid &&
         this.homeVal.isValid
       ) {
-        return (this.testfirstMortgageBalance.value / this.homeVal.value) * 100;
+        return (this.firstMortgageBalance.value / this.homeVal.value) * 100;
       } else return 105;
     }
   },
@@ -291,9 +291,9 @@ export default {
       return !isNaN(parseFloat(n)) && isFinite(n);
     },
     submitForm(event) {
-      if (this.isValidForm(this.homeVal, this.testfirstMortgageBalance)) {
+      if (this.isValidForm(this.homeVal, this.firstMortgageBalance)) {
         this.validateGreaterThanZero(this.homeVal);
-        this.validateGreaterThanZero(this.testfirstMortgageBalance);
+        this.validateGreaterThanZero(this.firstMortgageBalance);
         event.preventDefault();
         return;
       }
@@ -346,15 +346,15 @@ export default {
       return sum;
     },
 
-    isValidForm(homeVal, testfirstMortgageBalance) {
+    isValidForm(homeVal, firstMortgageBalance) {
       let isFormValid = true;
       isFormValid =
         !homeVal.isValid ||
         !homeVal.value ||
-        !testfirstMortgageBalance.value ||
-        !testfirstMortgageBalance.isValid ||
-        !testfirstMortgageBalance.isValid ||
-        !testfirstMortgageBalance.isValid;
+        !firstMortgageBalance.value ||
+        !firstMortgageBalance.isValid ||
+        !firstMortgageBalance.isValid ||
+        !firstMortgageBalance.isValid;
       return isFormValid;
     }
   }
