@@ -243,43 +243,7 @@ export default {
           desc: "(If applicable)"
         }
       },
-      mortgageBalance: {
-        first: {
-          id: "mortgageBalanceFirst",
-          value: null,
-          isValid: true,
-          label: "First Mortgage Balance",
-          icon: "$",
-          type: "text",
-          placeHolder: "Enter Amount",
-          errorMsg:
-            "This field is required and must be numeric and greater than Zero."
-        },
-        second: {
-          id: "mortgageBalanceFirstSecond",
-          value: null,
-          isValid: true,
-          label: "Second Mortgage Balance",
-          icon: "$",
-          type: "text",
-          placeHolder: "Enter Amount Optional",
-          errorMsg:
-            "This field is optional, but if you enter it must be numeric or leave it blank.",
-          desc: "(If applicable)"
-        },
-        third: {
-          id: "mortgageBalanceFirstThird",
-          value: null,
-          isValid: true,
-          label: "Third Mortgage Balance Or Any Other Liens On Your Home",
-          icon: "$",
-          type: "text",
-          placeHolder: "Enter Amount Optional",
-          errorMsg:
-            "This field is optional, but if you enter it must be numeric or leave it blank.",
-          desc: "(If applicable)"
-        }
-      },
+
       mortBalanceLTVRatio: {
         first: null,
         second: null,
@@ -291,10 +255,14 @@ export default {
   },
   computed: {
     ltvRatio() {
-      if (this.ltvRatio1) {
-        return 105;
-      } else
+      if (
+        this.testfirstMortgageBalance.value != null &&
+        this.homeVal.value != null &&
+        this.testfirstMortgageBalance.isValid &&
+        this.homeVal.isValid
+      ) {
         return (this.testfirstMortgageBalance.value / this.homeVal.value) * 100;
+      } else return 105;
     }
   },
   methods: {
