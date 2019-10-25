@@ -79,7 +79,7 @@
             </label>
             <div class="col-sm-6 padding-right-none">
               <div class="input-group">
-                <span class="form-control">{{ this.totalMonthlyPayment }}</span>
+                <span class="form-control">{{ totalMonthlyPayment }}</span>
                 <div class="input-group-append">
                   <span class="input-group-text rounded-right">%</span>
                 </div>
@@ -157,8 +157,6 @@ export default {
   },
   data() {
     return {
-      ltvRatio1: false,
-      totalMonthlyPayment: 1000,
       closingCosts: 1.5,
       newTerm: "",
       homeVal: {
@@ -260,8 +258,36 @@ export default {
         this.firstMortgageBalance.isValid &&
         this.homeVal.isValid
       ) {
-        return (this.firstMortgageBalance.value / this.homeVal.value) * 100;
+        return this.calculateRatio(
+          this.firstMortgageBalance.value,
+          this.homeVal.value
+        );
       } else return 105;
+    },
+
+    totalMonthlyPayment() {
+      let x, y, z, annualCharges, monthlyPmt;
+      x = this.annualFees.propertyInsurance.value;
+      y = this.annualFees.propertyTaxes.value;
+      z = this.annualFees.hoa.value;
+      monthlyPmt = this.monthlyPayment.value;
+      if (this.isFieldOptional(x)) {
+        x = 0;
+      }
+      if (this.isFieldOptional(y)) {
+        y = 0;
+      }
+      if (this.isFieldOptional(z)) {
+        z = 0;
+      }
+      if (this.isFieldOptional(monthlyPmt)) {
+        monthlyPmt = 0;
+      }
+      let numbers = [x, y, z];
+      annualCharges =
+        numbers.reduce((total, nums) => total + parseFloat(nums), 0) / 12;
+
+      return annualCharges + parseFloat(monthlyPmt);
     }
   },
   methods: {
@@ -302,24 +328,6 @@ export default {
       if (this.isFieldOptional(this.mortgageBalance.third.value)) {
         this.mortgageBalance.third.value = 0;
       }
-      this.mortBalanceLTVRatio.totalAmountOwed = this.addNumberArr([
-        this.mortgageBalance.first.value,
-        this.mortgageBalance.second.value,
-        this.mortgageBalance.third.value
-      ]);
-      this.mortBalanceLTVRatio.first = this.calculateRatio(
-        this.mortgageBalance.first.value,
-        this.homeVal.value
-      );
-      this.mortBalanceLTVRatio.second = this.calculateRatio(
-        this.mortgageBalance.second.value,
-        this.homeVal.value
-      );
-      this.mortBalanceLTVRatio.third = this.calculateRatio(
-        this.mortgageBalance.third.value,
-        this.homeVal.value
-      );
-
       event.preventDefault();
       this.mortBalanceLTVRatio.totalLTVRatio = this.calculateRatio(
         this.mortBalanceLTVRatio.totalAmountOwed,
@@ -336,13 +344,6 @@ export default {
     },
     calculateRatio(x, y) {
       return parseFloat(((x / y) * 100).toFixed(2));
-    },
-    addNumberArr(nums) {
-      let sum = 0;
-      for (let num of nums) {
-        sum += parseFloat(num);
-      }
-      return sum;
     },
 
     isValidForm(homeVal, firstMortgageBalance) {
