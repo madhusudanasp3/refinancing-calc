@@ -105,7 +105,7 @@
             </label>
             <div class="col-sm-6 padding-right-none">
               <select class="form-control" v-model="newTerm" id="exampleFormControlSelect1">
-                <option value="null">-- Select Term</option>
+                <option value="null" selected>-- Select Term</option>
                 <option>15</option>
                 <option>20</option>
                 <option>30</option>
@@ -113,22 +113,11 @@
               </select>
             </div>
           </div>
-          <div
-            class="form-group row background--gray background--rounded margin--bottom align-items-center"
-          >
-            <label class="col-sm-6 padding-right-none col-form-label font-weight-bold">
-              Fixed Interest Rate
-              <br />
-            </label>
-            <div class="col-sm-6 padding-right-none">
-              <div class="input-group">
-                <span class="form-control">{{ this.fixedInterestRate }}</span>
-                <div class="input-group-append">
-                  <span class="input-group-text rounded-right">%</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <InputFieldComponent
+            v-bind:inputField="fixedInterestRate"
+            v-on:enter-value="validateOptionalField"
+            v-bind:isInvalid="!fixedInterestRate.isValid"
+          ></InputFieldComponent>
           <div
             class="form-group row background--gray background--rounded margin--bottom align-items-center"
           >
@@ -170,7 +159,6 @@ export default {
     return {
       ltvRatio1: false,
       totalMonthlyPayment: 1000,
-      fixedInterestRate: null,
       closingCosts: 1.5,
       newTerm: "",
       homeVal: {
@@ -206,6 +194,17 @@ export default {
         errorMsg:
           "This field is required and must be numeric and greater than zero.",
         desc: "(Principal & interest only)"
+      },
+      fixedInterestRate: {
+        id: "fixedInterestRate",
+        value: null,
+        isValid: true,
+        label: "Fixed Interst Rate",
+        icon: "%",
+        type: "text",
+        placeHolder: "Enter Amount",
+        errorMsg:
+          "This field is required and must be numeric and greater than zero."
       },
       annualFees: {
         propertyTaxes: {

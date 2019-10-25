@@ -11,9 +11,10 @@
 
       <div class="col-sm-6 padding-right">
         <div class="input-group">
-          <div v-if="inputField.icon" class="input-group-prepend">
+          <div v-if="inputField.icon == '$'" class="input-group-prepend">
             <span class="input-group-text">{{ inputField.icon }}</span>
           </div>
+
           <input
             :id="inputField.id"
             v-model="inputField.value"
@@ -23,6 +24,10 @@
             :class="{ 'is-invalid': isInvalid }"
             @input="$emit('enter-value', inputField)"
           />
+          <div v-if="inputField.icon == '%'" class="input-group-append">
+            <span class="input-group-text rounded-right">{{ inputField.icon }}</span>
+          </div>
+
           <div class="invalid-feedback">{{ inputField.errorMsg }}</div>
         </div>
       </div>
