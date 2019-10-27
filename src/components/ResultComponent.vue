@@ -25,7 +25,7 @@
           <label class="col-sm-6 padding-right-none col-form-label font-weight-bold">Term in Years</label>
           <div class="col-sm-6 padding-right-none">
             <div class="input-group">
-              <span class="form-control-plaintext">{{ formatNumber(result.estHomeValue) }}</span>
+              <span class="form-control-plaintext">{{ formatNumber(result.termYear) }}</span>
             </div>
           </div>
         </div>
@@ -33,7 +33,7 @@
           <label class="col-sm-6 padding-right-none col-form-label font-weight-bold">Interest Rate</label>
           <div class="col-sm-6 padding-right-none">
             <div class="input-group">
-              <span class="form-control-plaintext">{{ result.firstMortgageBalance + '%' }}</span>
+              <span class="form-control-plaintext">{{ result.interestRate + '%' }}</span>
             </div>
           </div>
         </div>
@@ -46,9 +46,7 @@
           </label>
           <div class="col-sm-6 padding-right-none">
             <div class="input-group">
-              <span
-                class="form-control-plaintext"
-              >{{'$ ' + formatNumber(result.secondMortgageBalance) }}</span>
+              <span class="form-control-plaintext">{{'$ ' + formatNumber(result.estClosingCost) }}</span>
             </div>
           </div>
         </div>
@@ -58,9 +56,7 @@
           >Mortgage Balance</label>
           <div class="col-sm-6 padding-right-none">
             <div class="input-group">
-              <span
-                class="form-control-plaintext"
-              >{{ '$ ' + formatNumber(result.thirdMortgageBalance) }}</span>
+              <span class="form-control-plaintext">{{ '$ ' + formatNumber(result.mortgageBalance) }}</span>
             </div>
           </div>
         </div>
@@ -71,9 +67,7 @@
           </label>
           <div class="col-sm-6 padding-right-none">
             <div class="input-group">
-              <span
-                class="form-control-plaintext"
-              >{{ '$ ' + formatNumber(result.totalAmountOwedToHome) }}</span>
+              <span class="form-control-plaintext">{{ '$ ' + formatNumber(result.monthlyPayment1) }}</span>
             </div>
           </div>
         </div>
@@ -87,7 +81,7 @@
           </label>
           <div class="col-sm-6 padding-right-none">
             <div class="input-group">
-              <span class="form-control-plaintext">{{ '$' + formatNumber(result.firstLTVRatio)}}</span>
+              <span class="form-control-plaintext">{{ '$' + formatNumber(result.monthlyPayment2)}}</span>
             </div>
           </div>
         </div>
@@ -97,7 +91,7 @@
           >Monthly Payment Reduced By</label>
           <div class="col-sm-6 padding-right-none">
             <div class="input-group">
-              <span class="form-control-plaintext">{{ '$' + formatNumber(result.secondLTVRatio) }}</span>
+              <span class="form-control-plaintext">{{ '$' + formatNumber(result.monthlyReducedBy) }}</span>
             </div>
           </div>
         </div>
@@ -107,7 +101,7 @@
           >You Could Potentially Save This Much Each Year On Your Payments</label>
           <div class="col-sm-6 padding-right-none">
             <div class="input-group">
-              <span class="form-control-plaintext">{{ '$' + formatNumber(result.thirdLTVRatio) }}</span>
+              <span class="form-control-plaintext">{{ '$' + formatNumber(result.yearlySavings) }}</span>
             </div>
           </div>
         </div>

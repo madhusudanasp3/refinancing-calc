@@ -241,12 +241,15 @@ export default {
         }
       },
 
-      mortBalanceLTVRatio: {
-        first: null,
-        second: null,
-        third: null,
-        totalLTVRatio: "0.0",
-        totalAmountOwed: null
+      newMortgageInfo: {
+        termInYears: null,
+        interestRate: null,
+        estClosingCost: null,
+        mortgageBalance: null,
+        monthlyPayment1: null,
+        monthlyPayment2: null,
+        monthlyReducedBy: null,
+        yearlySavings: null
       }
     };
   },
@@ -320,13 +323,9 @@ export default {
         event.preventDefault();
         return;
       }
-
-      this.$emit(
-        "submit-form",
-        this.mortgageInfo.homeVal,
-        this.mortgageInfo.firstMortgageBalance,
-        this.mortgageInfo.monthlyPayment
-      );
+      this.newMortgageInfo.termInYears = this.newTerm;
+      this.newMortgageInfo.interestRate = this.mortgageInfo.fixedInterestRate.value;
+      this.$emit("submit-form", this.newMortgageInfo, this.newTerm);
       event.preventDefault();
     },
     calculateRatio(x, y) {

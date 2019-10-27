@@ -27,7 +27,7 @@
             role="tab"
             aria-controls="result"
             aria-selected="false"
-            :class="[result.totalRatio == null ? 'disabled': '',
+            :class="[result.monthlyPayment1 == null ? 'disabled': '',
                      visibleTab === 1 ? 'active' : '']"
             @click="visibleTab = 1"
           >Result</a>
@@ -71,32 +71,29 @@ export default {
     return {
       msg: "Refinancing Calculator",
       result: {
-        estHomeValue: null,
-        firstMortgageBalance: null,
-        secondMortgageBalance: null,
-        thirdMortgageBalance: null,
-        firstLTVRatio: null,
-        secondLTVRatio: null,
-        thirdLTVRatio: null,
-        totalRatio: null,
-        totalAmountOwedToHome: null
+        termYear: null,
+        interestRate: null,
+        estClosingCost: null,
+        mortgageBalance: null,
+        monthlyPayment1: null,
+        monthlyPayment2: null,
+        monthlyReducedBy: null,
+        yearlySavings: null
       },
-      visibleTab: 0,
-      resultTabClick: 0
+      visibleTab: 0
     };
   },
 
   methods: {
-    displayResults(calculatedResults, estMortgages, estimatedHomeVal) {
-      this.result.firstLTVRatio = 10;
-      this.result.secondLTVRatio = 10.23456;
-      this.result.thirdLTVRatio = 10;
-      this.result.totalRatio = 10;
-      this.result.totalAmountOwedToHome = 10;
-      this.result.estHomeValue = 10;
-      this.result.firstMortgageBalance = 10.34567;
-      this.result.secondMortgageBalance = 10;
-      this.result.thirdMortgageBalance = 10;
+    displayResults(newMortageInfo) {
+      this.result.termYear = newMortageInfo.termInYears;
+      this.result.interestRate = newMortageInfo.interestRate;
+      this.result.estClosingCost = newMortageInfo.estClosingCost;
+      this.result.mortgageBalance = newMortageInfo.mortgageBalance;
+      this.result.monthlyPayment1 = newMortageInfo.monthlyPayment1;
+      this.result.monthlyPayment2 = newMortageInfo.monthlyPayment2;
+      this.result.monthlyReducedBy = newMortageInfo.monthlyReducedBy;
+      this.result.yearlySavings = newMortageInfo.yearlySavings;
       this.visibleTab = 1;
     }
   }
