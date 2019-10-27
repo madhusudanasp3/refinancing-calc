@@ -320,23 +320,12 @@ export default {
         event.preventDefault();
         return;
       }
-      if (this.isFieldOptional(this.mortgageBalance.second.value)) {
-        this.mortgageBalance.second.value = 0;
-      }
-      if (this.isFieldOptional(this.mortgageBalance.third.value)) {
-        this.mortgageBalance.third.value = 0;
-      }
-      event.preventDefault();
-      this.mortBalanceLTVRatio.totalLTVRatio = this.calculateRatio(
-        this.mortBalanceLTVRatio.totalAmountOwed,
-        this.homeVal.value
-      );
 
       this.$emit(
         "submit-form",
-        this.mortBalanceLTVRatio,
-        this.mortgageBalance,
-        this.homeVal.value
+        this.mortgageInfo.homeVal,
+        this.mortgageInfo.firstMortgageBalance,
+        this.mortgageInfo.monthlyPayment
       );
       event.preventDefault();
     },

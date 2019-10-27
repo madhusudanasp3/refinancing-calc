@@ -88,17 +88,15 @@ export default {
 
   methods: {
     displayResults(calculatedResults, estMortgages, estimatedHomeVal) {
-      this.result.firstLTVRatio = parseFloat(calculatedResults.first);
-      this.result.secondLTVRatio = parseFloat(calculatedResults.second);
-      this.result.thirdLTVRatio = parseFloat(calculatedResults.third);
-      this.result.totalRatio = parseFloat(calculatedResults.totalLTVRatio);
-      this.result.totalAmountOwedToHome = parseFloat(
-        calculatedResults.totalAmountOwed
-      );
-      this.result.estHomeValue = parseFloat(estimatedHomeVal);
-      this.result.firstMortgageBalance = parseFloat(estMortgages.first.value);
-      this.result.secondMortgageBalance = parseFloat(estMortgages.second.value);
-      this.result.thirdMortgageBalance = parseFloat(estMortgages.third.value);
+      this.result.firstLTVRatio = 10;
+      this.result.secondLTVRatio = 10.23456;
+      this.result.thirdLTVRatio = 10;
+      this.result.totalRatio = 10;
+      this.result.totalAmountOwedToHome = 10;
+      this.result.estHomeValue = 10;
+      this.result.firstMortgageBalance = 10.34567;
+      this.result.secondMortgageBalance = 10;
+      this.result.thirdMortgageBalance = 10;
       this.visibleTab = 1;
     }
   }
