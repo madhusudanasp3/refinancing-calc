@@ -24,14 +24,14 @@
             </div>
           </div>
           <InputFieldComponent
-            v-bind:inputField="firstMortgageBalance"
+            v-bind:inputField="mortgageInfo.firstMortgageBalance"
             v-on:enter-value="validateGreaterThanZero"
-            v-bind:isInvalid="!firstMortgageBalance.isValid"
+            v-bind:isInvalid="!mortgageInfo.firstMortgageBalance.isValid"
           ></InputFieldComponent>
           <InputFieldComponent
-            v-bind:inputField="homeVal"
+            v-bind:inputField="mortgageInfo.homeVal"
             v-on:enter-value="validateGreaterThanZero"
-            v-bind:isInvalid="!homeVal.isValid"
+            v-bind:isInvalid="!mortgageInfo.homeVal.isValid"
           ></InputFieldComponent>
           <div
             class="form-group row background--gray background--rounded margin--bottom align-items-center"
@@ -50,24 +50,24 @@
             </div>
           </div>
           <InputFieldComponent
-            v-bind:inputField="monthlyPayment"
+            v-bind:inputField="mortgageInfo.monthlyPayment"
             v-on:enter-value="validateOptionalField"
-            v-bind:isInvalid="!monthlyPayment.isValid"
+            v-bind:isInvalid="!mortgageInfo.monthlyPayment.isValid"
           ></InputFieldComponent>
           <InputFieldComponent
-            v-bind:inputField="annualFees.propertyTaxes"
+            v-bind:inputField="mortgageInfo.propertyTaxes"
             v-on:enter-value="validateOptionalField"
-            v-bind:isInvalid="!annualFees.propertyTaxes.isValid"
+            v-bind:isInvalid="!mortgageInfo.propertyTaxes.isValid"
           ></InputFieldComponent>
           <InputFieldComponent
-            v-bind:inputField="annualFees.propertyInsurance"
+            v-bind:inputField="mortgageInfo.propertyInsurance"
             v-on:enter-value="validateOptionalField"
-            v-bind:isInvalid="!annualFees.propertyInsurance.isValid"
+            v-bind:isInvalid="!mortgageInfo.propertyInsurance.isValid"
           ></InputFieldComponent>
           <InputFieldComponent
-            v-bind:inputField="annualFees.hoa"
+            v-bind:inputField="mortgageInfo.hoa"
             v-on:enter-value="validateOptionalField"
-            v-bind:isInvalid="!annualFees.hoa.isValid"
+            v-bind:isInvalid="!mortgageInfo.hoa.isValid"
           ></InputFieldComponent>
           <div
             class="form-group row background--gray background--rounded margin--bottom align-items-center"
@@ -114,9 +114,9 @@
             </div>
           </div>
           <InputFieldComponent
-            v-bind:inputField="fixedInterestRate"
+            v-bind:inputField="mortgageInfo.fixedInterestRate"
             v-on:enter-value="validateOptionalField"
-            v-bind:isInvalid="!fixedInterestRate.isValid"
+            v-bind:isInvalid="!mortgageInfo.fixedInterestRate.isValid"
           ></InputFieldComponent>
           <div
             class="form-group row background--gray background--rounded margin--bottom align-items-center"
@@ -137,7 +137,7 @@
           <div class="form-group row">
             <div class="col">
               <div class="row">
-                <button class="btn btn-secondary font-weight-bold">Calculate Results</button>
+                <button class="btn btn-primary font-weight-bold">Calculate Results</button>
               </div>
             </div>
           </div>
@@ -159,52 +159,52 @@ export default {
     return {
       closingCosts: 1.5,
       newTerm: "",
-      homeVal: {
-        id: "estHomeValue",
-        value: null,
-        isValid: true,
-        label: "Estimated Home Value",
-        icon: "$",
-        type: "text",
-        placeHolder: "Enter Amount",
-        errorMsg:
-          "This field is required and must be numeric and greater than zero."
-      },
-      firstMortgageBalance: {
-        id: "firstMortgageBalance",
-        value: null,
-        isValid: true,
-        label: "First Monthly Mortgage Balance",
-        icon: "$",
-        type: "text",
-        placeHolder: "Enter Amount",
-        errorMsg:
-          "This field is required and must be numeric and greater than zero."
-      },
-      monthlyPayment: {
-        id: "monthlyPayment",
-        value: null,
-        isValid: true,
-        label: "Monthly Payment",
-        icon: "$",
-        type: "text",
-        placeHolder: "Enter Amount",
-        errorMsg:
-          "This field is required and must be numeric and greater than zero.",
-        desc: "(Principal & interest only)"
-      },
-      fixedInterestRate: {
-        id: "fixedInterestRate",
-        value: null,
-        isValid: true,
-        label: "Fixed Interst Rate",
-        icon: "%",
-        type: "text",
-        placeHolder: "Enter Amount",
-        errorMsg:
-          "This field is required and must be numeric and greater than zero."
-      },
-      annualFees: {
+      mortgageInfo: {
+        homeVal: {
+          id: "estHomeValue",
+          value: null,
+          isValid: true,
+          label: "Estimated Home Value",
+          icon: "$",
+          type: "text",
+          placeHolder: "Enter Amount",
+          errorMsg:
+            "This field is required and must be numeric and greater than zero."
+        },
+        firstMortgageBalance: {
+          id: "firstMortgageBalance",
+          value: null,
+          isValid: true,
+          label: "First Monthly Mortgage Balance",
+          icon: "$",
+          type: "text",
+          placeHolder: "Enter Amount",
+          errorMsg:
+            "This field is required and must be numeric and greater than zero."
+        },
+        monthlyPayment: {
+          id: "monthlyPayment",
+          value: null,
+          isValid: true,
+          label: "Monthly Payment",
+          icon: "$",
+          type: "text",
+          placeHolder: "Enter Amount",
+          errorMsg:
+            "This field is required and must be numeric and greater than zero.",
+          desc: "(Principal & interest only)"
+        },
+        fixedInterestRate: {
+          id: "fixedInterestRate",
+          value: null,
+          isValid: true,
+          label: "Fixed Interst Rate",
+          icon: "%",
+          type: "text",
+          placeHolder: "Enter Amount",
+          errorMsg:
+            "This field is required and must be numeric and greater than zero."
+        },
         propertyTaxes: {
           id: "propertyTaxes",
           value: null,
@@ -253,24 +253,24 @@ export default {
   computed: {
     ltvRatio() {
       if (
-        this.firstMortgageBalance.value != null &&
-        this.homeVal.value != null &&
-        this.firstMortgageBalance.isValid &&
-        this.homeVal.isValid
+        this.mortgageInfo.firstMortgageBalance.value != null &&
+        this.mortgageInfo.homeVal.value != null &&
+        this.mortgageInfo.firstMortgageBalance.isValid &&
+        this.mortgageInfo.homeVal.isValid
       ) {
         return this.calculateRatio(
-          this.firstMortgageBalance.value,
-          this.homeVal.value
+          this.mortgageInfo.firstMortgageBalance.value,
+          this.mortgageInfo.homeVal.value
         );
       } else return 105;
     },
 
     totalMonthlyPayment() {
       let x, y, z, annualCharges, monthlyPmt;
-      x = this.annualFees.propertyInsurance.value;
-      y = this.annualFees.propertyTaxes.value;
-      z = this.annualFees.hoa.value;
-      monthlyPmt = this.monthlyPayment.value;
+      x = this.mortgageInfo.propertyInsurance.value;
+      y = this.mortgageInfo.propertyTaxes.value;
+      z = this.mortgageInfo.hoa.value;
+      monthlyPmt = this.mortgageInfo.monthlyPayment.value;
       if (this.isFieldOptional(x)) {
         x = 0;
       }
@@ -316,9 +316,7 @@ export default {
       return !isNaN(parseFloat(n)) && isFinite(n);
     },
     submitForm(event) {
-      if (this.isValidForm(this.homeVal, this.firstMortgageBalance)) {
-        this.validateGreaterThanZero(this.homeVal);
-        this.validateGreaterThanZero(this.firstMortgageBalance);
+      if (!this.isValidForm(this.mortgageInfo)) {
         event.preventDefault();
         return;
       }
@@ -346,15 +344,24 @@ export default {
       return parseFloat(((x / y) * 100).toFixed(2));
     },
 
-    isValidForm(homeVal, firstMortgageBalance) {
+    isValidForm(mortgageInfo) {
       let isFormValid = true;
+      this.validateGreaterThanZero(mortgageInfo.homeVal);
+      this.validateGreaterThanZero(mortgageInfo.firstMortgageBalance);
+      this.validateGreaterThanZero(mortgageInfo.monthlyPayment);
+      this.validateGreaterThanZero(mortgageInfo.fixedInterestRate);
+      this.validateGreaterThanZero(mortgageInfo.propertyTaxes);
+      this.validateGreaterThanZero(mortgageInfo.propertyInsurance);
+      this.validateOptionalField(mortgageInfo.hoa);
+
       isFormValid =
-        !homeVal.isValid ||
-        !homeVal.value ||
-        !firstMortgageBalance.value ||
-        !firstMortgageBalance.isValid ||
-        !firstMortgageBalance.isValid ||
-        !firstMortgageBalance.isValid;
+        mortgageInfo.homeVal.isValid &&
+        mortgageInfo.firstMortgageBalance.isValid &&
+        mortgageInfo.monthlyPayment.isValid &&
+        mortgageInfo.fixedInterestRate.isValid &&
+        mortgageInfo.propertyTaxes.isValid &&
+        mortgageInfo.propertyInsurance.isValid &&
+        mortgageInfo.hoa.isValid;
       return isFormValid;
     }
   }
